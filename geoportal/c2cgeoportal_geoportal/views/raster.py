@@ -31,10 +31,11 @@
 import logging
 from decimal import Decimal
 
+import ogr
+import gdal
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPInternalServerError, HTTPNotFound
 
-from c2cgeoportal_geoportal.lib.raster.georaster import GeoRaster
 from c2cgeoportal_geoportal.lib.caching import set_common_headers, NO_CACHE
 
 log = logging.getLogger(__name__)
@@ -78,7 +79,7 @@ class Raster:
         if ref in self._rasters:
             raster = self._rasters[ref]
         elif "type" not in layer or layer["type"] == "shp_index":
-            raster = GeoRaster(layer["file"])
+            raster = ogr.Open(layer["file"])
             self._rasters[ref] = raster
         else:  # pragma: no cover
             raise HTTPInternalServerError(
@@ -87,7 +88,24 @@ class Raster:
                 )
             )
 
-        result = raster.get_value(lon, lat)
+        point = ogr.Geometry(ogr.wkbPoint)
+        point.addPoint(lon, lat)
+        layer = raster.GetLayer()
+        tile = layer.GetNextFeature()
+        while tile is not None:
+            if tile.geometry().Intersect(point):
+                continue
+
+        rastertile = gdal.open(tile.items()['location'])
+        envelope = tile.geometry().GetEnvelope()
+        resolution_x = rastertile.RasterXSize / (envelope[1] - envelope[0])
+        resolution_y = rastertile.RasterYSize / (envelope[3] - envelope[2])
+        pos_x = int((lon - envelope[0]) / resolution_x)
+        pos_y = int((lat - envelope[2]) / resolution_y)
+
+        band = rastertile.GetRasterBand(1)
+        result = band.ReadAsArray()[pos_x, pos_y]
+
         if "round" in layer:
             result = self._round(result, layer["round"])
         elif result is not None:
