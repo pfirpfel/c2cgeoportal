@@ -96,7 +96,7 @@ class Raster:
             if tile.geometry().Intersect(point):
                 continue
 
-        rastertile = gdal.open(tile.items()['location'])
+        rastertile = gdal.open(tile.items()["location"])
         envelope = tile.geometry().GetEnvelope()
         resolution_x = rastertile.RasterXSize / (envelope[1] - envelope[0])
         resolution_y = rastertile.RasterYSize / (envelope[3] - envelope[2])
