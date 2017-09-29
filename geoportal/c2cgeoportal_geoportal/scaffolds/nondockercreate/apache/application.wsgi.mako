@@ -8,10 +8,6 @@ site.addsitedir("${python_path}")
 root = "${project_directory}"
 
 
-# Remove site packages in both redhat and debian
-regex = re.compile(r"^/usr/lib(?:64)?/python\d(?:\.\d+)?/(?:site|dist)-packages$")
-sys.path = [p for p in sys.path if regex.match(p) is None]
-
 from pyramid.paster import get_app
 
 configfile = os.path.join(root, "geoportal", "${'development' if development == 'TRUE' else 'production'}.ini")
