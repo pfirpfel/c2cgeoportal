@@ -80,11 +80,19 @@ class TestRasterViews(TestCase):
         self.assertRaises(HTTPNotFound, raster.raster)
 
     def test_absolute_path(self):
-        from c2cgeoportal_geoportal.lib.raster.georaster import GeoRaster
-        gr = GeoRaster("/src/geoportal/tests/data/dem_absolute.shp")
-        tile = gr._get_tile(548000, 216000)
+        import ogr
+        raster = ogr.Open("/src/geoportal/tests/data/dem_absolute.shp")
+
+        point = ogr.Geometry(ogr.wkbPoint)
+        point.addPoint(548000, 216000)
+        layer = raster.GetLayer()
+        tile = layer.GetNextFeature()
+
+        while tile is not None:
+            if tile.geometry().Intersect(point):
+                break
         self.assertEqual(
-            tile.filename,
+            tile.items()["location"],
             "/home/sbrunner/regiogis/regiogis/c2cgeoportal/c2cgeoportal/tests/data/dem.bt")
 
     def test_profile_json(self):

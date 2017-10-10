@@ -94,7 +94,7 @@ class Raster:
         tile = layer.GetNextFeature()
         while tile is not None:
             if tile.geometry().Intersect(point):
-                continue
+                break
 
         rastertile = gdal.open(tile.items()["location"])
         envelope = tile.geometry().GetEnvelope()
