@@ -4,9 +4,9 @@ import re
 import os
 from logging.config import fileConfig
 
-site.addsitedir("${python_path}")
 root = "${project_directory}"
 
+sys.path = ["${python_path}"] + sys.path
 
 from pyramid.paster import get_app
 
