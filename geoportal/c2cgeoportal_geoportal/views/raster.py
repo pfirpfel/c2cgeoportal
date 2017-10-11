@@ -89,7 +89,7 @@ class Raster:
             )
 
         point = ogr.Geometry(ogr.wkbPoint)
-        point.addPoint(lon, lat)
+        point.AddPoint(lon, lat)
         layer = raster.GetLayer()
         tile = layer.GetNextFeature()
         while tile is not None:

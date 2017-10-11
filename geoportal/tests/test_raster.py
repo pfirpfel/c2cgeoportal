@@ -84,7 +84,7 @@ class TestRasterViews(TestCase):
         raster = ogr.Open("/src/geoportal/tests/data/dem_absolute.shp")
 
         point = ogr.Geometry(ogr.wkbPoint)
-        point.addPoint(548000, 216000)
+        point.AddPoint(548000, 216000)
         layer = raster.GetLayer()
         tile = layer.GetNextFeature()
 
