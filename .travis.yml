@@ -102,22 +102,18 @@ jobs:
       /tmp/travis/testgeomapfish/geoportal/testgeomapfish_geoportal/views
       /tmp/travis/testgeomapfish/commons/setup.py /tmp/travis/testgeomapfish/commons/testgeomapfish_commons
       -name \*.py | xargs travis/squote
-    - #travis/test-new-project http://localhost:8080/c2c/health_check
+    #- travis/test-new-project http://localhost:8080/c2c/health_check
+    - date
     - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check'
+    - date
     - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=1'
+    - date
     - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=2'
+    - date
     - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=3'
-    - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=4'
-    - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=5'
-    - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=6'
-    - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=7'
-    - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=8'
-    - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=9'
-    - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=10'
-    - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=11'
-    - curl --verbose --output /dev/null --max-time 120 'http://localhost:8080/c2c/health_check?max_level=100'
+    - date
     #- travis/test-new-project http://localhost:8080/c2c/health_check?max_level=100
-    - travis/test-new-project http://localhost:8080/layers/test/values/type enum
+    #- travis/test-new-project http://localhost:8080/layers/test/values/type enum
     - travis/run-on.sh /tmp/travis/testgeomapfish/ docker-compose logs
     - travis/run-on.sh /tmp/travis/testgeomapfish/ docker-compose down
     - travis/run-on.sh /tmp/travis/testgeomapfish/ ./docker-run travis/status.sh
