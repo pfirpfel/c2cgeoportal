@@ -360,40 +360,40 @@ vars:
             - name: mobile
               params:
                 no_redirect: "true"
-              level: 3
+              level: 101
 #           - name: desktop
 #             params:
 #               no_redirect: "true"
 #               debug: "true"
-#             level: 3
+#             level: 101
 #           - name: mobile
 #             params:
 #               no_redirect: "true"
 #               debug: "true"
-#             level: 3
+#             level: 101
         routes:
           disable: []
           routes:
 #           - name: apijs
-#             level: 3
+#             level: 101
 #           - name: xapijs
-#             level: 3
+#             level: 101
             - name: printproxy_capabilities
-              level: 3
+              level: 101
             - name: mapserverproxy
               display_name: mapserverproxy_wms
               params:
                 SERVICE: WMS
                 VERSION: 1.1.1
                 REQUEST: GetCapabilities
-              level: 3
+              level: 101
             - name: mapserverproxy
               display_name: mapserverproxy_wfs
               params:
                 SERVICE: WFS
                 VERSION: 1.1.0
                 REQUEST: GetCapabilities
-              level: 3
+              level: 101
         themes:
             params:
                 version: "2"
