@@ -348,7 +348,7 @@ vars:
           level: 1
           search: text to search
         lang:
-          level: 1
+          level: 2
           files: [ngeo, cgxp-api]
         phantomjs:
           disable: []
@@ -356,7 +356,7 @@ vars:
             - name: desktop
               params:
                 no_redirect: "true"
-              level: 1
+              level: 3
             - name: mobile
               params:
                 no_redirect: "true"
@@ -397,17 +397,17 @@ vars:
         themes:
             params:
                 version: "2"
-            level: 1
+            level: 4
             interfaces: {}
         print:
             spec: {}
-            level: 1
+            level: 5
 
     # Check collector configuration
     check_collector:
         hosts: []
         max_level: 1
-        level: 1
+        level: 6
 
     # What web page is authorized to use the API
     authorized_referers:
